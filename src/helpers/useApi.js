@@ -2,8 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import useAuthorize from "./useAuthorize";
 
-var client_id = "edfb7947629d4fbeb012af3ffa1915ae";
-var redirect_uri = "https://7ce8-78-67-173-210.ngrok.io";
+const client_id = "edfb7947629d4fbeb012af3ffa1915ae";
+const redirect_uri = "https://maxgomes92.github.io/spotify-create-playlist";
 
 const scope =
   "user-read-private user-read-email playlist-read-collaborative playlist-modify-public playlist-read-private playlist-modify-private";
