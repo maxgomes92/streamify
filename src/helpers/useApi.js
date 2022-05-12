@@ -2,7 +2,7 @@ import axios from "axios";
 import useAuthorize from "./useAuthorize";
 
 var client_id = "edfb7947629d4fbeb012af3ffa1915ae";
-var redirect_uri = "https://7ce8-78-67-173-210.ngrok.io";
+var redirect_uri = "https://maxgomes92.github.io/spotify-create-playlist";
 
 const scope =
   "user-read-private user-read-email playlist-read-collaborative playlist-modify-public playlist-read-private playlist-modify-private";
@@ -14,7 +14,6 @@ const LOGIN_URL = [
   "&client_id=" + encodeURIComponent(client_id),
   "&scope=" + encodeURIComponent(scope),
   "&redirect_uri=" + encodeURIComponent(redirect_uri),
-  // url += '&state=' + encodeURIComponent(state);
 ].join("");
 
 export default function useApi() {
