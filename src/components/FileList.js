@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import "./FileList.css";
 
-export default function FileList({ files, removeItem }) {
+export default function FileList({ files, removeItem, selectItem }) {
   const player = useRef(new Audio())
 
   const previewSong = (item) => {
@@ -12,11 +12,11 @@ export default function FileList({ files, removeItem }) {
 
     player.current.src = item.preview_url
     player.current.play()
-  }  
+  }
 
   return (
     <div className="FileList">
-      {files.map(({ name, size, q, result }, i) => (
+      {files.map(({ name, size, q, result }, fileIndex) => (
         <div className="file-item" key={name + size}>
           <div style={{ flexGrow: 1 }}>
             <p>{name}</p>
@@ -25,10 +25,10 @@ export default function FileList({ files, removeItem }) {
             {result && (
               <div>
                 <small>Results:</small>
-                {result.map((item) => (
-                  <div>
+                {result.map((item, itemIndex) => (
+                  <div key={item.id}>
                     <button onClick={() => previewSong(item)}>Preview</button>
-                    <input type="radio"></input>
+                    <input type="radio" name={q} onChange={() => selectItem(fileIndex, itemIndex)} checked={item.checked}></input>
                     <label>
                       {item.name} - {item.artist}
                     </label>
@@ -38,7 +38,7 @@ export default function FileList({ files, removeItem }) {
             )}
           </div>
           <div>
-            <button onClick={() => removeItem(i)}>X</button>
+            <button onClick={() => removeItem(fileIndex)}>X</button>
           </div>
         </div>
       ))}

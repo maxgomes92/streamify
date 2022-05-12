@@ -19,6 +19,18 @@ function App() {
     getPlaylists().then(console.log)
   }
 
+  const selectItem = (fileIndex, itemIndex) => {
+    files[fileIndex].result.forEach((item, index) => {
+      if (index === itemIndex) {
+        files[fileIndex].result[index].checked = true
+      } else {
+        files[fileIndex].result[index].checked = false
+      }
+    })
+
+    setFiles([...files])
+  }  
+
   const onSearch = async () => {
     const list = [...files]
 
@@ -63,7 +75,7 @@ function App() {
           <div style={{ textAlign: 'center' }}>
             <p>Logged in!</p>
             <MusicCollector onFilesAdded={onFilesAdded} clearList={() => setFiles([])} />
-            <FileList files={files} removeItem={removeItem} />
+            <FileList files={files} removeItem={removeItem} selectItem={selectItem} />
           </div>
           <div style={{ textAlign: 'center', marginTop: 10 }}>
             <button onClick={onSearch}>Search</button>
