@@ -1,0 +1,16 @@
+.FileList {
+  min-height: 200px;
+  border: solid 1px;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.file-item {
+  padding: 5px;
+  border-bottom: solid 1px;
+}
+
+.file-item p {
+  margin: 0;
+}

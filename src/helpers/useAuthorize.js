@@ -2,11 +2,18 @@
 
 
 export default function useAuthorize () {
-  const hash = window.location.hash
+  const locationHash = window.location.hash
+  const storageHash = localStorage.getItem('login-hash')
 
-  if (!hash) {
+  if (!locationHash && !storageHash) {
     return {}
   }
+
+  if (locationHash) {
+    localStorage.setItem('login-hash', locationHash)
+  }
+
+  const hash = locationHash || storageHash
 
   const params = new URLSearchParams(hash.substring(1))
   const accessToken = params.get('access_token')
