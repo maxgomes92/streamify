@@ -9,6 +9,7 @@
 .file-item {
   padding: 5px;
   border-bottom: solid 1px;
+  display: flex;
 }
 
 .file-item p {
