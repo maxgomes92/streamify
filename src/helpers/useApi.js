@@ -18,7 +18,7 @@ const LOGIN_URL = [
 ].join("");
 
 export default function useApi() {
-  const { accessToken, tokenType, logout } = useAuthorize();
+  const { accessToken, tokenType } = useAuthorize();
 
   const options = {
     headers: {

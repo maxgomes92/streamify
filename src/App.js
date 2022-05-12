@@ -23,8 +23,15 @@ function App() {
     const list = [...files]
 
     for (let file of list) {
-      const result = await searchForItem('pais e filhos')
-      file.result = result
+      const { data: { tracks: { items }}} = await searchForItem(file.q)
+      file.result = items.map((item) => {
+        return {
+          id: item.id,
+          name: item.name,
+          artist: item.artists[0].name,
+          preview_url: item.preview_url,
+        }
+      })
     }
 
     setFiles(list)

@@ -20,14 +20,9 @@ export default function useAuthorize () {
   const tokenType = params.get('token_type')
   const expiresIn = params.get('expires_in')
 
-  const logout = () => {
-    localStorage.setItem('login-hash', null)
-  }
-
   return {
     accessToken,
     tokenType,
     expiresIn,
-    logout,
   }
 }
