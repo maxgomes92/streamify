@@ -9,15 +9,11 @@ function App() {
     const filesStr = localStorage.getItem('files')
     return filesStr ? JSON.parse(filesStr) : []
   })
-  const { authorize, loggedIn, getPlaylists, searchForItem } = useApi()
+  const { authorize, loggedIn, searchForItem, createPlaylist, addToPlaylist } = useApi()
 
   useEffect(() => {
     localStorage.setItem('files', JSON.stringify(files))
   }, [files])
-
-  const getMyPlaylists = () => {
-    getPlaylists().then(console.log)
-  }
 
   const selectItem = (fileIndex, itemIndex) => {
     files[fileIndex].result.forEach((item, index) => {
@@ -42,6 +38,7 @@ function App() {
           name: item.name,
           artist: item.artists[0].name,
           preview_url: item.preview_url,
+          uri: item.uri,
         }
       })
     }
@@ -68,6 +65,22 @@ function App() {
     setFiles([...files, ...myFiles])
   }
 
+  const createMyPlaylist = () => {
+    const uris = files.map((file) => {
+      const item = file.result.find(item => item.checked)
+      
+      return item.uri
+    }).filter(o => o)
+
+    if (uris.length === 0) {
+      return
+    }
+    
+    createPlaylist('Test 1').then(({ data: { id } }) => {
+      addToPlaylist(id, { uris, position: 0 })
+    })
+  }
+
   return (
     <div className="App">
       {loggedIn ? (
@@ -79,6 +92,7 @@ function App() {
           </div>
           <div style={{ textAlign: 'center', marginTop: 10 }}>
             <button onClick={onSearch}>Search</button>
+            <button onClick={createMyPlaylist}>Create playlist</button>
           </div>
         </div>
       ): (
