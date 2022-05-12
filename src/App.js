@@ -19,8 +19,15 @@ function App() {
     getPlaylists().then(console.log)
   }
 
-  const search = () => {
-    searchForItem('pais e filhos')
+  const onSearch = async () => {
+    const list = [...files]
+
+    for (let file of list) {
+      const result = await searchForItem('pais e filhos')
+      file.result = result
+    }
+
+    setFiles(list)
   }
 
   const removeItem = (i) => {
@@ -52,7 +59,7 @@ function App() {
             <FileList files={files} removeItem={removeItem} />
           </div>
           <div style={{ textAlign: 'center', marginTop: 10 }}>
-            <button>Search</button>
+            <button onClick={onSearch}>Search</button>
           </div>
         </div>
       ): (
