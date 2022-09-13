@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import useAuthorize from "./useAuthorize";
 
 const client_id = "edfb7947629d4fbeb012af3ffa1915ae";
@@ -21,6 +21,13 @@ export default function useApi() {
   const [user, setUser] = useState({});
   const { accessToken, tokenType } = useAuthorize();
 
+  const options = useMemo(() => ({
+    headers: {
+      Authorization: `${tokenType} ${accessToken}`,
+      "Content-Type": "application/json",
+    },
+  }), [tokenType, accessToken])
+
   useEffect(() => {
     if (!accessToken) {
       return;
@@ -32,14 +39,7 @@ export default function useApi() {
         setUser(data);
       })
       .catch(handleLoginExpired);
-  }, [accessToken]);
-
-  const options = {
-    headers: {
-      Authorization: `${tokenType} ${accessToken}`,
-      "Content-Type": "application/json",
-    },
-  };
+  }, [accessToken, options]);
 
   const authorize = () => {
     window.location.href = LOGIN_URL;
