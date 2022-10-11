@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import React, { useEffect } from "react";
+import React from "react";
 import logo from "./icon.png";
 import Separator from "../../components/Separator";
 import useApi from "../../helpers/useApi";
