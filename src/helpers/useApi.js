@@ -1,5 +1,7 @@
 import axios from "axios";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useMemo } from "react";
+import { useApp } from "../store";
+import { PATH } from "../utils/constants";
 import useAuthorize from "./useAuthorize";
 
 const client_id = "edfb7947629d4fbeb012af3ffa1915ae";
@@ -20,8 +22,8 @@ const LOGIN_URL = [
 ].join("");
 
 export default function useApi() {
-  const [user, setUser] = useState({});
   const { accessToken, tokenType } = useAuthorize();
+  const { actions: { setUser }, state: { user } } = useApp();
 
   const options = useMemo(() => ({
     headers: {
@@ -41,7 +43,7 @@ export default function useApi() {
         setUser(data);
       })
       .catch(handleLoginExpired);
-  }, [accessToken, options]);
+  }, [accessToken]);
 
   const authorize = () => {
     window.location.href = LOGIN_URL;
@@ -55,8 +57,10 @@ export default function useApi() {
 
   const handleLoginExpired = ({ response }) => {
     if (response.status === 401) {
-      window.location.href = LOGIN_URL;
+      window.location.href = PATH.home;
     }
+
+    console.error('API ERROR', response)
   };
 
   const searchForItem = (query) => {
