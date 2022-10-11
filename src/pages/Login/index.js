@@ -1,10 +1,17 @@
-import React from 'react'
-import useApi from '../../helpers/useApi'
+import React, { useEffect } from 'react'
+import useAuthorize from '../../helpers/useAuthorize';
+import { PATH } from '../../utils/constants';
 
 export default function Login () {
-  useApi()
+  const { accessToken } = useAuthorize()
+
+  useEffect(() => {
+    if (!accessToken) return;
+
+    window.location.href = PATH.app;
+  }, [accessToken])
 
   return (
-    <>Login!</>
+    <>Logging in...</>
   )
 }

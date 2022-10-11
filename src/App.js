@@ -13,7 +13,7 @@ function App() {
         <Routes>
           <Route path={DEFAULT_PATH.home} element={<Home />} />
           <Route path={DEFAULT_PATH.login} element={<Login />} />
-          <Route path={DEFAULT_PATH.app} element={<App />} />
+          <Route path={DEFAULT_PATH.app} element={<Creator />} />
         </Routes>
       </AppProvider>
     </>

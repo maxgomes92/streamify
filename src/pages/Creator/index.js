@@ -5,6 +5,6 @@ export default function Creator () {
   useApi()
 
   return (
-    <div>App</div>
+    <div>App goes here!</div>
   )
 }
