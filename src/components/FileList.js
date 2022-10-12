@@ -1,3 +1,4 @@
+import { Card } from '@mui/material';
 import { useRef } from 'react'
 import "./FileList.css";
 
@@ -15,7 +16,7 @@ export default function FileList({ files, removeItem, selectItem }) {
   }
 
   return (
-    <div className="FileList">
+    <Card className="FileList">
       {files.map(({ name, size, q, result }, fileIndex) => (
         <div className="file-item" key={name + size}>
           <div style={{ flexGrow: 1 }}>
@@ -42,6 +43,6 @@ export default function FileList({ files, removeItem, selectItem }) {
           </div>
         </div>
       ))}
-    </div>
+    </Card>
   );
 }

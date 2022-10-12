@@ -57,10 +57,11 @@ export default function useApi() {
 
   const handleLoginExpired = ({ response }) => {
     if (response.status === 401) {
+      localStorage.removeItem('login-hash')
       window.location.href = PATH.home;
     }
 
-    console.error('API ERROR', response)
+    console.error(response.data)
   };
 
   const searchForItem = (query) => {
