@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react'
+import { Button } from '@mui/material'
 import useApi from '../../helpers/useApi'
 import MusicCollector from '../../components/FileCollector'
 import FileList from '../../components/FileList'
+import Separator from '../../components/Separator'
 import './index.css'
+import { Container } from '@mui/system'
 
-export default function Creator () {
+export default function Creator() {
   const [files, setFiles] = useState(() => {
     const filesStr = localStorage.getItem('files')
     return filesStr ? JSON.parse(filesStr) : []
@@ -25,13 +28,13 @@ export default function Creator () {
     })
 
     setFiles([...files])
-  }  
+  }
 
   const onSearch = async () => {
     const list = [...files]
 
     for (let file of list) {
-      const { data: { tracks: { items }}} = await searchForItem(file.q)
+      const { data: { tracks: { items } } } = await searchForItem(file.q)
       file.result = items.map((item) => {
         return {
           id: item.id,
@@ -68,14 +71,14 @@ export default function Creator () {
   const createMyPlaylist = () => {
     const uris = files.map((file) => {
       const item = file.result.find(item => item.checked)
-      
+
       return item.uri
     }).filter(o => o)
 
     if (uris.length === 0) {
       return
     }
-    
+
     createPlaylist('Test 1').then(({ data: { id } }) => {
       addToPlaylist(id, { uris, position: 0 })
     })
@@ -83,21 +86,18 @@ export default function Creator () {
 
   return (
     <div className="App">
-      {loggedIn ? (
-        <div>
-          <div style={{ textAlign: 'center' }}>
-            <p>Logged in!</p>
-            <MusicCollector onFilesAdded={onFilesAdded} clearList={() => setFiles([])} />
-            <FileList files={files} removeItem={removeItem} selectItem={selectItem} />
-          </div>
-          <div style={{ textAlign: 'center', marginTop: 10 }}>
-            <button onClick={onSearch}>Search</button>
-            <button onClick={createMyPlaylist}>Create playlist</button>
-          </div>
+      <Container>
+        <p>Logged in!</p>
+        <div style={{ textAlign: 'center' }}>
+          <Button variant="contained" onClick={onSearch}>Search</Button>
+          <Separator width={20} />
+          <Button variant="contained" onClick={createMyPlaylist}>Create playlist</Button>
+          <MusicCollector onFilesAdded={onFilesAdded} />
+          <FileList files={files} removeItem={removeItem} selectItem={selectItem} />
         </div>
-      ): (
-        <button onClick={authorize}>Login</button>
-      )}
+        <Separator height={20} />
+        <Button variant="contained" onClick={() => setFiles([])}>Clear List</Button>
+      </Container>
     </div>
   );
 }
