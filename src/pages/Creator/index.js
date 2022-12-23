@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Button } from '@mui/material'
 import useApi from '../../helpers/useApi'
-import MusicCollector from '../../components/FileCollector'
 import FileList from '../../components/FileList'
 import Separator from '../../components/Separator'
 import './index.css'
@@ -66,6 +65,7 @@ export default function Creator() {
     })
 
     setFiles([...files, ...myFiles])
+    // onSearch()
   }
 
   const createMyPlaylist = () => {
@@ -86,17 +86,26 @@ export default function Creator() {
 
   return (
     <div className="App">
-      <Container>
-        <p>Logged in!</p>
-        <div style={{ textAlign: 'center' }}>
-          <Button variant="contained" onClick={onSearch}>Search</Button>
-          <Separator width={20} />
-          <Button variant="contained" onClick={createMyPlaylist}>Create playlist</Button>
-          <MusicCollector onFilesAdded={onFilesAdded} />
-          <FileList files={files} removeItem={removeItem} selectItem={selectItem} />
-        </div>
+      <Container style={{ maxWidth: 720 }}>
+        <h1 style={{ textAlign: 'center' }}>Crie playlists a partir de músicas mp3!</h1>
+
+        <p>
+          1. Adicione suas músicas na lista <br />
+          2. Escolha a versão que mais gostar <br />
+          3. Crie sua playlist!
+        </p>
+
+        <Separator width={5} />
+
+        <FileList files={files} removeItem={removeItem} selectItem={selectItem} onFilesAdded={onFilesAdded} />
+
         <Separator height={20} />
-        <Button variant="contained" onClick={() => setFiles([])}>Clear List</Button>
+
+        <div style={{ textAlign: 'right' }}>
+          <Button variant="contained" color="primary" onClick={() => setFiles([])} disabled={files.length === 0}>Limpar</Button>
+          <Separator width={10} />
+          <Button variant="contained" color="info" disabled={files.length === 0} onClick={createMyPlaylist}>Criar Playlist</Button>
+        </div>
       </Container>
     </div>
   );

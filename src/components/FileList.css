@@ -1,9 +1,10 @@
 .FileList {
   min-height: 200px;
   border: solid 1px;
-  max-width: 600px;
   margin: 0 auto;
   text-align: left;
+  max-height: calc(100vh - 300px);
+  overflow-y: scroll;
 }
 
 .file-item {
