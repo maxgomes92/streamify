@@ -29,11 +29,12 @@ export default function Creator() {
     setFiles([...files])
   }
 
-  const onSearch = async () => {
-    const list = [...files]
+  const onSearch = async (newFiles) => {
+    const list = [...newFiles]
 
     for (let file of list) {
       const { data: { tracks: { items } } } = await searchForItem(file.q)
+
       file.result = items.map((item) => {
         return {
           id: item.id,
@@ -45,7 +46,7 @@ export default function Creator() {
       })
     }
 
-    setFiles(list)
+    setFiles([...files, ...list])
   }
 
   const removeItem = (i) => {
@@ -64,8 +65,7 @@ export default function Creator() {
       return f
     })
 
-    setFiles([...files, ...myFiles])
-    // onSearch()
+    onSearch(myFiles)
   }
 
   const createMyPlaylist = () => {

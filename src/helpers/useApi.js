@@ -66,7 +66,7 @@ export default function useApi() {
 
   const searchForItem = (query) => {
     return axios
-      .get(`${baseUrl}/search?q=${query}&limit=5&type=track`, options)
+      .get(`${baseUrl}/search?q=${query}&limit=3&type=track`, options)
       .catch(handleLoginExpired);
   };
 

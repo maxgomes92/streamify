@@ -1,8 +1,10 @@
 import { useRef } from 'react'
-import { Button, Card } from '@mui/material';
+import { Button, Card, FormControl, FormControlLabel, FormLabel, IconButton, Radio, RadioGroup } from '@mui/material';
 import styled from 'styled-components';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import StopIcon from '@mui/icons-material/Stop';
 import Separator from './Separator';
 import "./FileList.css";
 
@@ -19,7 +21,10 @@ export default function FileList({ files, removeItem, selectItem, onFilesAdded }
   const isEmpty = files.length === 0
 
   const previewSong = (item) => {
-    if (player.current.src === item.preview_url) {
+    if (
+      player.current.src === item.preview_url &&
+      !player.current.paused
+    ) {
       player.current.pause()
       return
     }
@@ -49,32 +54,48 @@ export default function FileList({ files, removeItem, selectItem, onFilesAdded }
         </AddMusicBanner>
       )}
 
-      {files.map(({ name, size, q, result }, fileIndex) => (
+      {files.map(({ name, size, q, result, notFound }, fileIndex) => (
         <div className="file-item" key={name + size}>
-          <div style={{ flexGrow: 1 }}>
-            <p>{name}</p>
-            <small>{q}</small>
-
-            {result && (
-              <div>
-                <small>Results:</small>
-                {result.map((item, itemIndex) => (
-                  <div key={item.id}>
-                    <button onClick={() => previewSong(item)}>Preview</button>
-                    <input type="radio" name={q} onChange={() => selectItem(fileIndex, itemIndex)} checked={item.checked}></input>
-                    <label>
-                      {item.name} - {item.artist}
-                    </label>
+          <div style={{ display: 'flex' }}>
+            <div style={{ flexGrow: 1 }}>
+              <h3 style={{ margin: 0 }}>{q}</h3>
+              <small>{name}</small>
+            </div>
+            <div>
+              <IconButton onClick={() => removeItem(fileIndex)} size='small' aria-label='Remove music'>
+                <DeleteIcon />
+              </IconButton>
+            </div>
+          </div>
+          {result && (
+            <FormControl style={{ width: '100%' }}>
+              <FormLabel id={q}>Results:</FormLabel>
+              <RadioGroup
+                name={q}
+                style={{ padding: '0 0 0 5px' }}
+              >
+                {result.map((item) => (
+                  <div key={item.id} style={{ display: 'flex' }}>
+                    <div style={{ flexGrow: 1 }}>
+                      <FormControlLabel value={item.id} control={<Radio />} label={`${item.name} - ${item.artist}`} />
+                    </div>
+                    <div style={{ flexGrow: 0 }}>
+                      <IconButton onClick={() => previewSong(item)} color='primary' size='small'>
+                        {player.current.src === item.preview_url ? (
+                          <StopIcon />
+                        ) : (
+                          <PlayArrowIcon />
+                        )}
+                      </IconButton>
+                    </div>
                   </div>
                 ))}
-              </div>
-            )}
-          </div>
-          <div>
-            <Button onClick={() => removeItem(fileIndex)}>
-              <DeleteIcon />
-            </Button>
-          </div>
+              </RadioGroup>
+              {result.length === 0 && (
+                <p style={{ color: 'red' }}>No results found!</p>
+              )}
+            </FormControl>
+          )}
         </div>
       ))}
 
