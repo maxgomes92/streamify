@@ -84,6 +84,12 @@ export default function Creator() {
     })
   }
 
+  const getCreatePlaylistDisabled = () => {
+    return files.length === 0 || !files.some(file => {
+      return file.result.some(({ checked }) => checked)
+    })
+  }
+
   return (
     <div className="App">
       <Container style={{ maxWidth: 720 }}>
@@ -97,6 +103,7 @@ export default function Creator() {
 
         <Separator width={5} />
 
+        <p style={{ margin: 0, textAlign: 'right' }}>{files.length}/100</p>
         <FileList files={files} removeItem={removeItem} selectItem={selectItem} onFilesAdded={onFilesAdded} />
 
         <Separator height={20} />
@@ -104,7 +111,7 @@ export default function Creator() {
         <div style={{ textAlign: 'right' }}>
           <Button variant="contained" color="primary" onClick={() => setFiles([])} disabled={files.length === 0}>Limpar</Button>
           <Separator width={10} />
-          <Button variant="contained" color="info" disabled={files.length === 0} onClick={createMyPlaylist}>Criar Playlist</Button>
+          <Button variant="contained" color="info" disabled={getCreatePlaylistDisabled()} onClick={createMyPlaylist}>Criar Playlist</Button>
         </div>
       </Container>
     </div>
