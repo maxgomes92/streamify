@@ -11,7 +11,7 @@ export default function Creator() {
     const filesStr = localStorage.getItem('files')
     return filesStr ? JSON.parse(filesStr) : []
   })
-  const { loggedIn, searchForItem, createPlaylist, addToPlaylist } = useApi()
+  const { searchForItem, createPlaylist, addToPlaylist } = useApi()
 
   useEffect(() => {
     localStorage.setItem('files', JSON.stringify(files))
