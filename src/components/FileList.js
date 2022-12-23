@@ -57,7 +57,7 @@ export default function FileList({ files, removeItem, selectItem, onFilesAdded }
         </AddMusicBanner>
       )}
 
-      {files.map(({ name, size, q, result, notFound }, fileIndex) => (
+      {files.map(({ name, size, q, result }, fileIndex) => (
         <div className="file-item" key={name + size}>
           <div style={{ display: 'flex' }}>
             <div style={{ flexGrow: 1 }}>
@@ -77,10 +77,16 @@ export default function FileList({ files, removeItem, selectItem, onFilesAdded }
                 name={q}
                 style={{ padding: '0 0 0 5px' }}
               >
-                {result.map((item) => (
+                {result.map((item, itemIndex) => (
                   <div key={item.id} style={{ display: 'flex' }}>
                     <div style={{ flexGrow: 1 }}>
-                      <FormControlLabel value={item.id} control={<Radio />} label={`${item.name} - ${item.artist}`} />
+                      <FormControlLabel
+                        value={item.id}
+                        control={<Radio />}
+                        label={`${item.name} - ${item.artist}`}
+                        onChange={() => selectItem(fileIndex, itemIndex)}
+                        checked={item.checked} 
+                      />
                     </div>
                     <div style={{ flexGrow: 0 }}>
                       <IconButton onClick={() => previewSong(item)} color='primary' size='small'>

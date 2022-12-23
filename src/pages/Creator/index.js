@@ -11,7 +11,7 @@ export default function Creator() {
     const filesStr = localStorage.getItem('files')
     return filesStr ? JSON.parse(filesStr) : []
   })
-  const { authorize, loggedIn, searchForItem, createPlaylist, addToPlaylist } = useApi()
+  const { loggedIn, searchForItem, createPlaylist, addToPlaylist } = useApi()
 
   useEffect(() => {
     localStorage.setItem('files', JSON.stringify(files))
@@ -72,7 +72,7 @@ export default function Creator() {
     const uris = files.map((file) => {
       const item = file.result.find(item => item.checked)
 
-      return item.uri
+      return item?.uri
     }).filter(o => o)
 
     if (uris.length === 0) {
