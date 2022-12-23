@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { Button, Card, FormControl, FormControlLabel, FormLabel, IconButton, Radio, RadioGroup } from '@mui/material';
 import styled from 'styled-components';
 import AddIcon from '@mui/icons-material/Add';
@@ -19,6 +19,7 @@ export default function FileList({ files, removeItem, selectItem, onFilesAdded }
   const addMusicInputRef = useRef()
   const player = useRef(new Audio())
   const isEmpty = files.length === 0
+  const [musicIdPlaying, setMusicIdPlaying] = useState()
 
   const previewSong = (item) => {
     if (
@@ -26,11 +27,13 @@ export default function FileList({ files, removeItem, selectItem, onFilesAdded }
       !player.current.paused
     ) {
       player.current.pause()
+      setMusicIdPlaying()
       return
     }
 
     player.current.src = item.preview_url
     player.current.play()
+    setMusicIdPlaying(item.id)
   }
 
   const onChange = (e) => {
@@ -81,7 +84,7 @@ export default function FileList({ files, removeItem, selectItem, onFilesAdded }
                     </div>
                     <div style={{ flexGrow: 0 }}>
                       <IconButton onClick={() => previewSong(item)} color='primary' size='small'>
-                        {player.current.src === item.preview_url ? (
+                        {musicIdPlaying === item.id ? (
                           <StopIcon />
                         ) : (
                           <PlayArrowIcon />
