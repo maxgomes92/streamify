@@ -1,17 +1,17 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+import { Navigate } from 'react-router-dom';
 import useAuthorize from '../../helpers/useAuthorize';
 import { PATH } from '../../utils/constants';
 
 export default function Login () {
   const { accessToken } = useAuthorize()
 
-  useEffect(() => {
-    if (!accessToken) return;
-
-    window.location.href = PATH.app;
-  }, [accessToken])
-
   return (
-    <>Logging in...</>
+    <>
+      Logging in...
+      {accessToken && (
+        <Navigate to={PATH.app} replace={true} />
+      )}  
+    </>
   )
 }
