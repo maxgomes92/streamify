@@ -1,7 +1,7 @@
 const isProduction = process.env.NODE_ENV === 'production'
 const GITPAGES_PATH = '/spotify-create-playlist'
 
-export const DEFAULT_PATH = {
+const DEFAULT_PATH = {
   home: '/',
   app: '/app',
   login: '/login',
