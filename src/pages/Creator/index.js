@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Button } from '@mui/material'
+import { Alert, Button, Snackbar, TextField } from '@mui/material'
 import useApi from '../../helpers/useApi'
 import FileList from '../../components/FileList'
 import Separator from '../../components/Separator'
@@ -7,6 +7,9 @@ import './index.css'
 import { Container } from '@mui/system'
 
 export default function Creator() {
+  const [alertMsg, setAlertMsg] = useState('')
+  const [snackMsg, setSnackMsg] = useState('')
+
   const [files, setFiles] = useState(() => {
     const filesStr = localStorage.getItem('files')
     return filesStr ? JSON.parse(filesStr) : []
@@ -69,6 +72,13 @@ export default function Creator() {
   }
 
   const createMyPlaylist = () => {
+    const name = document.getElementById('name').value
+
+    if (!name) {
+      setAlertMsg('Obrigatório preencher nome da playlist.')
+      return
+    }
+
     const uris = files.map((file) => {
       const item = file.result.find(item => item.checked)
 
@@ -101,7 +111,13 @@ export default function Creator() {
           3. Crie sua playlist!
         </p>
 
-        <Separator width={5} />
+        <Separator height={5} />
+
+        <TextField label="Nome da playlist" variant="filled" fullWidth id="name" onChange={() => setAlertMsg('')} />
+
+        {!!alertMsg && <Alert severity="error">{alertMsg}</Alert>}
+
+        <Separator height={10} />
 
         <p style={{ margin: 0, textAlign: 'right' }}>{files.length}/100</p>
         <FileList files={files} removeItem={removeItem} selectItem={selectItem} onFilesAdded={onFilesAdded} />
@@ -114,6 +130,12 @@ export default function Creator() {
           <Button variant="contained" color="info" disabled={getCreatePlaylistDisabled()} onClick={createMyPlaylist}>Criar Playlist</Button>
         </div>
       </Container>
+
+      {/* <Snackbar open={true} autoHideDuration={6000} onClose={() => { }}>
+        <Alert onClose={() => { }} severity="error">
+          This is a success message!
+        </Alert>
+      </Snackbar> */}
     </div>
   );
 }
