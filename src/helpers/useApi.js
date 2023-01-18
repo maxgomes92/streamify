@@ -43,7 +43,7 @@ export default function useApi() {
         setUser(data);
       })
       .catch(handleLoginExpired);
-  }, [accessToken, options, setUser]);
+  }, [accessToken, options]);
 
   const authorize = () => {
     window.location.href = LOGIN_URL;
