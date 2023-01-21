@@ -89,9 +89,13 @@ export default function Creator() {
       return
     }
 
-    createPlaylist('Test 1').then(({ data: { id } }) => {
-      addToPlaylist(id, { uris, position: 0 })
-    })
+    createPlaylist(null)
+      .then(({ data: { id } }) => {
+        addToPlaylist(id, { uris, position: 0 })
+      })
+      .catch((err) => {
+        setSnackMsg(err.message)
+      })
   }
 
   const getCreatePlaylistDisabled = () => {
@@ -131,11 +135,11 @@ export default function Creator() {
         </div>
       </Container>
 
-      {/* <Snackbar open={true} autoHideDuration={6000} onClose={() => { }}>
-        <Alert onClose={() => { }} severity="error">
-          This is a success message!
+      <Snackbar open={!!snackMsg} autoHideDuration={6000} onClose={() => setSnackMsg('')}>
+        <Alert onClose={() => setSnackMsg('')} severity="error">
+          {snackMsg}
         </Alert>
-      </Snackbar> */}
+      </Snackbar>
     </div>
   );
 }

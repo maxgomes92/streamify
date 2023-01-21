@@ -56,12 +56,16 @@ export default function useApi() {
   };
 
   const handleLoginExpired = ({ response }) => {
+    if (response.status === 400) {
+      throw response.data.error
+    }
+
     if (response.status === 401) {
       localStorage.removeItem('login-hash')
       window.location.href = PATH.home;
     }
 
-    console.error(response.data)
+    console.error(response)
   };
 
   const searchForItem = (query) => {
