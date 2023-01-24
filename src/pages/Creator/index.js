@@ -89,7 +89,7 @@ export default function Creator() {
       return
     }
 
-    createPlaylist(null)
+    createPlaylist(name)
       .then(({ data: { id } }) => {
         addToPlaylist(id, { uris, position: 0 })
       })
