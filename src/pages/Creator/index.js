@@ -9,6 +9,7 @@ import { Container } from '@mui/system'
 export default function Creator() {
   const [alertMsg, setAlertMsg] = useState('')
   const [snackMsg, setSnackMsg] = useState('')
+  const [playlistTitle, setPlaylistTitle] = useState('')
 
   const [files, setFiles] = useState(() => {
     const filesStr = localStorage.getItem('files')
@@ -38,13 +39,14 @@ export default function Creator() {
     for (let file of list) {
       const { data: { tracks: { items } } } = await searchForItem(file.q)
 
-      file.result = items.map((item) => {
+      file.result = items.map((item, i) => {
         return {
           id: item.id,
           name: item.name,
           artist: item.artists[0].name,
           preview_url: item.preview_url,
           uri: item.uri,
+          checked: i === 0,
         }
       })
     }
@@ -72,7 +74,7 @@ export default function Creator() {
   }
 
   const createMyPlaylist = () => {
-    const name = document.getElementById('name').value
+    const name = playlistTitle
 
     if (!name) {
       setAlertMsg('Obrigatório preencher nome da playlist.')
@@ -101,7 +103,12 @@ export default function Creator() {
   const getCreatePlaylistDisabled = () => {
     return files.length === 0 || !files.some(file => {
       return file.result.some(({ checked }) => checked)
-    })
+    }) || !playlistTitle
+  }
+
+  const onPlaylistTitleChange = (event) => {
+    setAlertMsg('')
+    setPlaylistTitle(event.target.value)
   }
 
   return (
@@ -117,7 +124,7 @@ export default function Creator() {
 
         <Separator height={5} />
 
-        <TextField label="Nome da playlist" variant="filled" fullWidth id="name" onChange={() => setAlertMsg('')} />
+        <TextField label="Nome da playlist" variant="filled" fullWidth id="name" onChange={onPlaylistTitleChange} />
 
         {!!alertMsg && <Alert severity="error">{alertMsg}</Alert>}
 
