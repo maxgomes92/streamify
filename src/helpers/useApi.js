@@ -65,7 +65,11 @@ export default function useApi() {
       window.location.href = PATH.home;
     }
 
-    console.error(response)
+    if (response?.data?.error) {
+      return Promise.reject(response?.data?.error)
+    }
+
+    return Promise.reject("Not possible to create playlist, try again later.")
   };
 
   const searchForItem = (query) => {

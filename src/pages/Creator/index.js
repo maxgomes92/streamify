@@ -23,11 +23,7 @@ export default function Creator() {
 
   const selectItem = (fileIndex, itemIndex) => {
     files[fileIndex].result.forEach((item, index) => {
-      if (index === itemIndex) {
-        files[fileIndex].result[index].checked = true
-      } else {
-        files[fileIndex].result[index].checked = false
-      }
+      files[fileIndex].result[index].checked = index === itemIndex
     })
 
     setFiles([...files])
@@ -77,7 +73,7 @@ export default function Creator() {
     const name = playlistTitle
 
     if (!name) {
-      setAlertMsg('Obrigatório preencher nome da playlist.')
+      setAlertMsg('Please fill up playlist name.')
       return
     }
 
@@ -100,12 +96,6 @@ export default function Creator() {
       })
   }
 
-  const getCreatePlaylistDisabled = () => {
-    return files.length === 0 || !files.some(file => {
-      return file.result.some(({ checked }) => checked)
-    }) || !playlistTitle
-  }
-
   const onPlaylistTitleChange = (event) => {
     setAlertMsg('')
     setPlaylistTitle(event.target.value)
@@ -114,17 +104,17 @@ export default function Creator() {
   return (
     <div className="App">
       <Container style={{ maxWidth: 720 }}>
-        <h1 style={{ textAlign: 'center' }}>Crie playlists a partir de músicas mp3!</h1>
+        <h1 style={{ textAlign: 'center' }}>Create Spotify playlist from mp3 files!</h1>
 
         <p>
-          1. Adicione suas músicas na lista <br />
-          2. Escolha a versão que mais gostar <br />
-          3. Crie sua playlist!
+          1. Add your songs to the list <br />
+          2. Pick the version you like better (Optional) <br />
+          3. Create your playlist!
         </p>
 
         <Separator height={5} />
 
-        <TextField label="Nome da playlist" variant="filled" fullWidth id="name" onChange={onPlaylistTitleChange} />
+        <TextField label="Playlist name" variant="filled" fullWidth id="name" onChange={onPlaylistTitleChange} />
 
         {!!alertMsg && <Alert severity="error">{alertMsg}</Alert>}
 
@@ -136,9 +126,9 @@ export default function Creator() {
         <Separator height={20} />
 
         <div style={{ textAlign: 'right' }}>
-          <Button variant="contained" color="primary" onClick={() => setFiles([])} disabled={files.length === 0}>Limpar</Button>
+          <Button variant="contained" color="primary" onClick={() => setFiles([])} disabled={files.length === 0}>Clear List</Button>
           <Separator width={10} />
-          <Button variant="contained" color="info" disabled={getCreatePlaylistDisabled()} onClick={createMyPlaylist}>Criar Playlist</Button>
+          <Button variant="contained" color="info" onClick={createMyPlaylist}>Create Playlist</Button>
         </div>
       </Container>
 
