@@ -35,6 +35,7 @@ export default function Creator() {
     const list = [...newFiles]
 
     for (let file of list) {
+      // TODO: Handle error, parallelize.
       const { data: { tracks: { items } } } = await searchForItem(file.q)
 
       file.result = items.map((item, i) => {
@@ -114,7 +115,10 @@ export default function Creator() {
   }
 
   const onPlaylistTitleChange = (event) => {
-    setTitleValidationMsg('')
+    if (titleValidationMsg) {
+      setTitleValidationMsg('')
+    }
+
     setPlaylistTitle(event.target.value)
   }
 
