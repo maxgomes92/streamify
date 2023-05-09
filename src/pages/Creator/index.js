@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Alert, Button, Snackbar, TextField } from '@mui/material'
+import { Alert, Button, CircularProgress, Snackbar, TextField } from '@mui/material'
 import useApi from '../../helpers/useApi'
 import FileList from '../../components/FileList'
 import Separator from '../../components/Separator'
@@ -11,6 +11,7 @@ export default function Creator() {
   const [errorMsg, setErrorMsg] = useState('')
   const [playlistTitle, setPlaylistTitle] = useState('')
   const [successMsg, setSuccessMsg] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const [files, setFiles] = useState(() => {
     const filesStr = localStorage.getItem('files')
@@ -56,6 +57,10 @@ export default function Creator() {
     setFiles([...files])
   }
 
+  const clearList = () => {
+    setFiles([])
+  }
+
   const onFilesAdded = (newFiles) => {
     const myFiles = newFiles.filter((file) => {
       return !files.find((f) => f.name === file.name)
@@ -73,6 +78,10 @@ export default function Creator() {
   const createMyPlaylist = () => {
     const name = playlistTitle
 
+    if (isLoading) {
+      return
+    }
+
     if (!name) {
       setTitleValidationMsg('Please fill up playlist name.')
       return
@@ -88,12 +97,19 @@ export default function Creator() {
       return
     }
 
+    setIsLoading(true)
     createPlaylist(name)
       .then(({ data: { id } }) => {
         addToPlaylist(id, { uris, position: 0 })
+        setSuccessMsg("Playlist created successfully!")
+        clearList()
+        setPlaylistTitle("")
       })
       .catch((err) => {
         setErrorMsg(err.message)
+      })
+      .finally(() => {
+        setIsLoading(false)
       })
   }
 
@@ -115,7 +131,7 @@ export default function Creator() {
 
         <Separator height={5} />
 
-        <TextField label="Playlist name" variant="filled" fullWidth id="name" onChange={onPlaylistTitleChange} />
+        <TextField label="Playlist name" variant="filled" fullWidth id="name" onChange={onPlaylistTitleChange} value={playlistTitle} />
 
         {!!titleValidationMsg && <Alert severity="error">{titleValidationMsg}</Alert>}
 
@@ -127,9 +143,14 @@ export default function Creator() {
         <Separator height={20} />
 
         <div style={{ textAlign: 'right' }}>
-          <Button variant="contained" color="primary" onClick={() => setFiles([])} disabled={files.length === 0}>Clear List</Button>
+          <Button variant="contained" color="primary" onClick={clearList} disabled={files.length === 0}>Clear List</Button>
           <Separator width={10} />
-          <Button variant="contained" color="info" onClick={createMyPlaylist}>Create Playlist</Button>
+          <Button variant="contained" color="info" onClick={createMyPlaylist}>
+            <div style={{ visibility: isLoading ? 'hidden' : 'visible' }}>Create Playlist</div>
+            {isLoading && (
+              <CircularProgress size={20} style={{ position: 'absolute', color: 'white' }} />
+            )}
+          </Button>
         </div>
       </Container>
 

@@ -57,7 +57,7 @@ export default function FileList({ files, removeItem, selectItem, onFilesAdded }
       {isEmpty && (
         <AddMusicBanner onClick={onAddMusicBannerClick}>
           <div style={{ textAlign: 'center', flexGrow: 1 }}>
-            Arraste suas músicas ou clique aqui!
+            Click here to start adding your songs.
           </div>
         </AddMusicBanner>
       )}
@@ -90,7 +90,7 @@ export default function FileList({ files, removeItem, selectItem, onFilesAdded }
                         control={<Radio />}
                         label={`${item.name} - ${item.artist}`}
                         onChange={() => selectItem(fileIndex, itemIndex)}
-                        checked={item.checked} 
+                        checked={item.checked}
                       />
                     </div>
                     <div style={{ flexGrow: 0 }}>

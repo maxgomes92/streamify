@@ -78,7 +78,7 @@ export default function useApi() {
       .catch(handleLoginExpired);
   };
 
-  const createPlaylist = (name, description = "Playlist zika!") => {
+  const createPlaylist = (name, description) => {
     return axios
       .post(
         `${baseUrl}/users/${user.id}/playlists`,
