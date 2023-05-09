@@ -7,9 +7,10 @@ import './index.css'
 import { Container } from '@mui/system'
 
 export default function Creator() {
-  const [alertMsg, setAlertMsg] = useState('')
-  const [snackMsg, setSnackMsg] = useState('')
+  const [titleValidationMsg, setTitleValidationMsg] = useState('')
+  const [errorMsg, setErrorMsg] = useState('')
   const [playlistTitle, setPlaylistTitle] = useState('')
+  const [successMsg, setSuccessMsg] = useState('')
 
   const [files, setFiles] = useState(() => {
     const filesStr = localStorage.getItem('files')
@@ -73,7 +74,7 @@ export default function Creator() {
     const name = playlistTitle
 
     if (!name) {
-      setAlertMsg('Please fill up playlist name.')
+      setTitleValidationMsg('Please fill up playlist name.')
       return
     }
 
@@ -92,12 +93,12 @@ export default function Creator() {
         addToPlaylist(id, { uris, position: 0 })
       })
       .catch((err) => {
-        setSnackMsg(err.message)
+        setErrorMsg(err.message)
       })
   }
 
   const onPlaylistTitleChange = (event) => {
-    setAlertMsg('')
+    setTitleValidationMsg('')
     setPlaylistTitle(event.target.value)
   }
 
@@ -116,7 +117,7 @@ export default function Creator() {
 
         <TextField label="Playlist name" variant="filled" fullWidth id="name" onChange={onPlaylistTitleChange} />
 
-        {!!alertMsg && <Alert severity="error">{alertMsg}</Alert>}
+        {!!titleValidationMsg && <Alert severity="error">{titleValidationMsg}</Alert>}
 
         <Separator height={10} />
 
@@ -132,9 +133,15 @@ export default function Creator() {
         </div>
       </Container>
 
-      <Snackbar open={!!snackMsg} autoHideDuration={6000} onClose={() => setSnackMsg('')}>
-        <Alert onClose={() => setSnackMsg('')} severity="error">
-          {snackMsg}
+      <Snackbar open={!!errorMsg} autoHideDuration={6000} onClose={() => setErrorMsg('')} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
+        <Alert onClose={() => setErrorMsg('')} severity="error">
+          {errorMsg}
+        </Alert>
+      </Snackbar>
+
+      <Snackbar open={!!successMsg} autoHideDuration={6000} onClose={() => setSuccessMsg('')} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
+        <Alert onClose={() => setSuccessMsg('')} severity="success">
+          {successMsg}
         </Alert>
       </Snackbar>
     </div>
