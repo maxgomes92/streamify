@@ -8,6 +8,7 @@ import { Container } from '@mui/system'
 
 export default function Creator() {
   const [titleValidationMsg, setTitleValidationMsg] = useState('')
+  const [listValidationMsg, setListValidationMsg] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
   const [playlistTitle, setPlaylistTitle] = useState('')
   const [successMsg, setSuccessMsg] = useState('')
@@ -63,6 +64,8 @@ export default function Creator() {
   }
 
   const onFilesAdded = (newFiles) => {
+    setListValidationMsg('')
+
     const myFiles = newFiles.filter((file) => {
       return !files.find((f) => f.name === file.name)
     }).map((f) => {
@@ -95,6 +98,7 @@ export default function Creator() {
     }).filter(o => o)
 
     if (uris.length === 0) {
+      setListValidationMsg("Please add your mp3 files here.")
       return
     }
 
@@ -141,8 +145,9 @@ export default function Creator() {
 
         <Separator height={10} />
 
-        <p style={{ margin: 0, textAlign: 'right' }}>{files.length}/100</p>
         <FileList files={files} removeItem={removeItem} selectItem={selectItem} onFilesAdded={onFilesAdded} />
+        {!!listValidationMsg && <Alert severity="error">{listValidationMsg}</Alert>}
+        <p style={{ margin: 0, textAlign: 'right' }}>{files.length}/100</p>
 
         <Separator height={20} />
 
