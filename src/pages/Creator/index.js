@@ -3,8 +3,8 @@ import { Alert, Button, CircularProgress, Snackbar, TextField } from '@mui/mater
 import useApi from '../../helpers/useApi'
 import FileList from '../../components/FileList'
 import Separator from '../../components/Separator'
-import './index.css'
 import { Container } from '@mui/system'
+import './index.css'
 
 export default function Creator() {
   const [titleValidationMsg, setTitleValidationMsg] = useState('')
@@ -134,7 +134,7 @@ export default function Creator() {
 
   return (
     <div className="App">
-      <Container style={{ maxWidth: 720 }}>
+      <Container className="App-Container">
         <h1 style={{ textAlign: 'center' }}>Create Spotify playlist from mp3 files!</h1>
 
         <p>
