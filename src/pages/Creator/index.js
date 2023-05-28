@@ -49,9 +49,12 @@ export default function Creator() {
           checked: i === 0,
         }
       })
-    }
 
-    setFiles([...files, ...list])
+      setFiles((previousValue) => [
+        ...previousValue,
+        file,
+      ])
+    }
   }
 
   const removeItem = (i) => {
