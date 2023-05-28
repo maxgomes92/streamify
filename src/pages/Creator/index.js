@@ -80,15 +80,14 @@ export default function Creator() {
   }
 
   const createMyPlaylist = () => {
-    const name = playlistTitle
+    const errorCallbacks = []
 
     if (isLoading) {
       return
     }
 
-    if (!name) {
-      setTitleValidationMsg('Please fill up playlist name.')
-      return
+    if (!playlistTitle) {
+      errorCallbacks.push(() => setTitleValidationMsg('Please fill up playlist name.'))
     }
 
     const uris = files.map((file) => {
@@ -98,12 +97,16 @@ export default function Creator() {
     }).filter(o => o)
 
     if (uris.length === 0) {
-      setListValidationMsg("Please add your mp3 files here.")
-      return
+      errorCallbacks.push(() => setListValidationMsg("Please add your mp3 files here."))
+    }
+
+    if (errorCallbacks.length) {
+      errorCallbacks.forEach(callback => callback())
+      return;
     }
 
     setIsLoading(true)
-    createPlaylist(name)
+    createPlaylist(playlistTitle)
       .then(({ data: { id } }) => {
         addToPlaylist(id, { uris, position: 0 })
         setSuccessMsg("Playlist created successfully!")
