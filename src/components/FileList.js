@@ -51,7 +51,7 @@ export default function FileList({ files, removeItem, selectItem, onFilesAdded }
   }
 
   return (
-    <Card className="FileList" style={isEmpty ? { display: 'flex', flexDirection: 'column' } : {}}>
+    <Card className="FileList" style={isEmpty ? { display: 'flex', flexDirection: 'column', width: '100%' } : {}}>
       <input type="file" ref={addMusicInputRef} multiple onChange={onChange} value={[]} style={{ display: 'none' }} />
 
       {isEmpty && (

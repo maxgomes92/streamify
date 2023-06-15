@@ -1,8 +1,8 @@
 .FileList {
-  min-height: 200px;
+  flex-grow: 1;
+  min-height: 400px;
   margin: 0 auto;
   text-align: left;
-  max-height: calc(100vh - 300px);
   overflow-y: scroll!important;
 }
 

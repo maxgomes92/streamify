@@ -135,7 +135,7 @@ export default function Creator() {
   return (
     <div className="App">
       <Container className="App-Container">
-        <h1 style={{ textAlign: 'center' }}>Create Spotify playlist from mp3 files!</h1>
+        <h1 style={{ textAlign: 'center', margin: 0 }}>Create Spotify playlist from mp3 files!</h1>
 
         <p>
           1. Add your songs to the list <br />
@@ -143,19 +143,13 @@ export default function Creator() {
           3. Create your playlist!
         </p>
 
-        <Separator height={5} />
-
         <TextField label="Playlist name" variant="filled" fullWidth id="name" onChange={onPlaylistTitleChange} value={playlistTitle} />
 
         {!!titleValidationMsg && <Alert severity="error">{titleValidationMsg}</Alert>}
 
-        <Separator height={10} />
-
         <FileList files={files} removeItem={removeItem} selectItem={selectItem} onFilesAdded={onFilesAdded} />
         {!!listValidationMsg && <Alert severity="error">{listValidationMsg}</Alert>}
         <p style={{ margin: 0, textAlign: 'right' }}>{files.length}/100</p>
-
-        <Separator height={20} />
 
         <div style={{ textAlign: 'right' }}>
           <Button variant="contained" color="primary" onClick={clearList} disabled={files.length === 0}>Clear List</Button>

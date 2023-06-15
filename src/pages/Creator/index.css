@@ -2,4 +2,8 @@
 
 .App-Container {
   max-width: 720px!important;
+  display: flex!important;
+  flex-direction: column;
+  max-height: calc(100vh - 16px);
+  gap: 10px;
 }
