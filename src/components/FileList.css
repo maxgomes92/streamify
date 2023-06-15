@@ -4,6 +4,7 @@
   margin: 0 auto;
   text-align: left;
   overflow-y: scroll!important;
+  width: 100%;
 }
 
 .file-item {

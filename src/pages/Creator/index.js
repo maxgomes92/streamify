@@ -36,24 +36,34 @@ export default function Creator() {
     const list = [...newFiles]
 
     for (let file of list) {
-      // TODO: Handle error, parallelize.
-      const { data: { tracks: { items } } } = await searchForItem(file.q)
+      try {
+        const { data: { tracks: { items } } } = await searchForItem(file.q)
 
-      file.result = items.map((item, i) => {
-        return {
-          id: item.id,
-          name: item.name,
-          artist: item.artists[0].name,
-          preview_url: item.preview_url,
-          uri: item.uri,
-          checked: i === 0,
-        }
-      })
+        file.result = items.map((item, i) => {
+          return {
+            id: item.id,
+            name: item.name,
+            artist: item.artists[0].name,
+            preview_url: item.preview_url,
+            uri: item.uri,
+            checked: i === 0,
+          }
+        })
 
-      setFiles((previousValue) => [
-        ...previousValue,
-        file,
-      ])
+        setFiles((previousValue) => [
+          ...previousValue,
+          file,
+        ])
+      } catch (err) {
+        file.result = []
+
+        setFiles((previousValue) => [
+          ...previousValue,
+          file,
+        ])
+
+        setErrorMsg(err.message)
+      }
     }
   }
 
