@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import React from "react";
 import logo from "./icon.png";
 import Separator from "../../components/Separator";
@@ -11,8 +11,21 @@ export default function Home() {
   const { authorize, loggedIn } = useApi();
 
   return (
-    <div>
-      <h1>Convert your mp3 files to a Spotify playlist with ease!</h1>
+    <Container>
+      {/* <h1>Convert your mp3 files to a Spotify playlist with ease!</h1> */}
+      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+        <div>
+          <img src="/spotify-create-playlist/folder-mp3-list.png" style={{ height: 200, width: 'auto' }} />
+        </div>
+
+        <div>
+          <img src="/spotify-create-playlist/arrow-right.png" style={{ height: 100, width: 'auto' }} />
+        </div>
+
+        <div>
+          <img src="/spotify-create-playlist/folder-mp3-list.png" />
+        </div>
+      </div>
       <div>
         {loggedIn ? (
           <Navigate to={PATH.app} replace={true} />
@@ -24,6 +37,6 @@ export default function Home() {
           </Button>
         )}
       </div>
-    </div>
+    </Container>
   );
 }
