@@ -5,3 +5,7 @@ img {
 .gradient-bg {
   background: linear-gradient(90deg, rgba(110,104,226,1) 0%, rgba(79,79,214,1) 13%, rgba(0,212,255,1) 100%);
 }
+
+.arrow-down {
+  transform: rotate(90deg);
+}

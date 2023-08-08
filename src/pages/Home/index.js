@@ -52,7 +52,7 @@ export default function Home() {
         <div style={sideStyle}>
           <Typography>MP3 to Spotify</Typography>
 
-          <Separator height={50} />
+          <Separator height={10} />
 
           <div style={{ flexGrow: 1 }}>
             <div>
@@ -63,7 +63,7 @@ export default function Home() {
               <Separator height={25} />
 
               <Typography variant="body1">
-                Get insights into your music listening habits with top artists and tracks. Discover new music, create playlists and get monthly reports.
+                Lazy to migrate your folders of music to a streaming service? Wait no more! Drag and drop your mp3 files to our app and start listening.
               </Typography>
 
               <Separator height={25} />
@@ -93,7 +93,7 @@ export default function Home() {
           </div>
 
           <div>
-            <img src="/spotify-create-playlist/arrow-right.png" style={{ height: 100, width: 'auto' }} />
+            <img src="/spotify-create-playlist/arrow-right.png" className="arrow-down" />
           </div>
 
           <div>
