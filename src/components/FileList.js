@@ -118,7 +118,7 @@ export default function FileList({ files, removeItem, selectItem, onFilesAdded }
           <Separator height={10} />
           <Button color="info" onClick={onAddMusicBannerClick}>
             <AddIcon />
-            Adicionar mais
+            Add more
           </Button>
           <Separator height={10} />
         </div>

@@ -83,9 +83,9 @@ export default function Creator() {
       return !files.find((f) => f.name === file.name)
     }).map((f) => {
       f.q = f.name
-        .replace(/_/g, ' ')
-        .replace(/-/g, ' ')
-        .split('.')[0]
+        .replace(/\.\w{3}$/g, '') // Removes extension
+        .replace(/\W/g, ' ') // Non-character by space
+        .replace(/\s+/g, ' ') // Multiple spaces by 1 space
       return f
     })
 
