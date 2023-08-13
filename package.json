@@ -8,6 +8,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.12.3",
+    "@sentry/react": "^7.63.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
@@ -24,8 +25,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "upload-source-maps": "npx @sentry/wizard@latest -i sourcemaps",
     "predeploy": "NODE_ENV=production npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org makez-tecnologia-r0 --project javascript-react ./build && sentry-cli sourcemaps upload --org makez-tecnologia-r0 --project javascript-react ./build",
+    "react-scripts build": "react-scripts build && npm run sentry:sourcemaps"
   },
   "eslintConfig": {
     "extends": [

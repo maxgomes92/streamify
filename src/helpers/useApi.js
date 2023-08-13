@@ -7,7 +7,7 @@ import useAuthorize from "./useAuthorize";
 const client_id = "edfb7947629d4fbeb012af3ffa1915ae";
 const redirect_uri = process.env.NODE_ENV === 'development'
   ? 'http://localhost:3000/login'
-  : "https://maxgomes92.github.io/spotify-create-playlist"
+  : "https://maxgomes92.github.io/streamify/login"
 
 const scope =
   "user-read-private user-read-email playlist-read-collaborative playlist-modify-public playlist-read-private playlist-modify-private";
@@ -43,6 +43,7 @@ export default function useApi() {
         setUser(data);
       })
       .catch(handleLoginExpired);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken, options]);
 
   const authorize = () => {
