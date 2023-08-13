@@ -15,7 +15,7 @@ const AddMusicBanner = styled.a`
   cursor: pointer;
 `
 
-export default function FileList({ files, removeItem, selectItem, onFilesAdded }) {
+export default function FileList({ files, removeItem, selectItem, onFilesAdded, setErrorMsg }) {
   const addMusicInputRef = useRef()
   const player = useRef(new Audio())
   const isEmpty = files.length === 0
@@ -28,6 +28,11 @@ export default function FileList({ files, removeItem, selectItem, onFilesAdded }
   }, [])
 
   const previewSong = (item) => {
+    if (typeof item.preview_url !== "string") {
+      setErrorMsg("This song do not support preview")
+      return
+    }
+
     if (
       player.current.src === item.preview_url &&
       !player.current.paused
@@ -36,9 +41,9 @@ export default function FileList({ files, removeItem, selectItem, onFilesAdded }
       return
     }
 
+    setMusicIdPlaying(item.id)
     player.current.src = item.preview_url
     player.current.play()
-    setMusicIdPlaying(item.id)
   }
 
   const onChange = (e) => {

@@ -157,7 +157,7 @@ export default function Creator() {
 
         {!!titleValidationMsg && <Alert severity="error">{titleValidationMsg}</Alert>}
 
-        <FileList files={files} removeItem={removeItem} selectItem={selectItem} onFilesAdded={onFilesAdded} />
+        <FileList files={files} removeItem={removeItem} selectItem={selectItem} onFilesAdded={onFilesAdded} setErrorMsg={setErrorMsg} />
         {!!listValidationMsg && <Alert severity="error">{listValidationMsg}</Alert>}
         <p style={{ margin: 0, textAlign: 'right' }}>{files.length}/100</p>
 
