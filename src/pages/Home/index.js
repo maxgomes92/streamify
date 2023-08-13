@@ -1,5 +1,5 @@
 import { Button, Container, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import logo from "./icon.png";
 import Separator from "../../components/Separator";
 import useApi from "../../helpers/useApi";
@@ -35,16 +35,14 @@ const sideStyle = {
 
 export default function Home() {
   const { authorize, loggedIn } = useApi();
-  const [hasClickedLogin, setHasClickedLogin] = useState(false)
 
   const onLoginClick = () => {
-    setHasClickedLogin(true)
     authorize()
   }
 
   return (
     <Container style={wrapperStyle} maxWidth="md">
-      {hasClickedLogin && loggedIn && (
+      {loggedIn && (
         <Navigate to={PATH.app} replace={true} />
       )}
 
