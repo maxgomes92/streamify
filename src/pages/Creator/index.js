@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
-import { Alert, Button, CircularProgress, Snackbar, TextField } from '@mui/material'
+import { Alert, Button, CircularProgress, List, ListItem, Snackbar, TextField, Typography } from '@mui/material'
 import useApi from '../../helpers/useApi'
 import FileList from '../../components/FileList'
 import Separator from '../../components/Separator'
 import { Container } from '@mui/system'
+import * as Sentry from "@sentry/react"
 import './index.css'
 
 export default function Creator() {
@@ -62,7 +63,9 @@ export default function Creator() {
           file,
         ])
 
-        setErrorMsg(err.message)
+        setErrorMsg(`Sorry! We failed to find a music with the name "${file.q}"`)
+
+        Sentry.captureException(err)
       }
     }
   }
@@ -127,7 +130,8 @@ export default function Creator() {
         setPlaylistTitle("")
       })
       .catch((err) => {
-        setErrorMsg(err.message)
+        setErrorMsg("Sorry! We failed to create our playlist. Try again.")
+        Sentry.captureException(err)
       })
       .finally(() => {
         setIsLoading(false)
@@ -145,13 +149,19 @@ export default function Creator() {
   return (
     <div className="App">
       <Container className="App-Container">
-        <h1 style={{ textAlign: 'center', margin: 0 }}>Create Spotify playlist from mp3 files!</h1>
+        <Typography align='center' variant='h2'>Playlist creator</Typography>
 
-        <p>
-          1. Add your songs to the list <br />
-          2. Pick the version you like better (Optional) <br />
-          3. Create your playlist!
-        </p>
+        <List>
+          <ListItem>
+            1. Add your songs to the list
+          </ListItem>
+          <ListItem>
+            2. Pick the version you like better (Optional)
+          </ListItem>
+          <ListItem>
+            3. Create your playlist!
+          </ListItem>
+        </List>
 
         <TextField label="Playlist name" variant="filled" fullWidth id="name" onChange={onPlaylistTitleChange} value={playlistTitle} />
 

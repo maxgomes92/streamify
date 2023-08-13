@@ -52,8 +52,6 @@ export default function Home() {
         <div style={sideStyle}>
           <Typography>MP3 to Spotify</Typography>
 
-          <Separator height={10} />
-
           <div style={{ flexGrow: 1 }}>
             <div>
               <Typography variant="h4" style={{ fontWeight: 'bolder' }}>
@@ -89,15 +87,15 @@ export default function Home() {
 
         <div style={{ ...sideStyle, alignItems: 'center' }} className="gradient-bg">
           <div>
-            <img src="/spotify-create-playlist/folder-mp3-list.png" style={imageStyle} />
+            <img src="/spotify-create-playlist/folder-mp3-list.png" style={imageStyle} alt="Folder with mp3 files" />
           </div>
 
           <div>
-            <img src="/spotify-create-playlist/arrow-right.png" className="arrow-down" />
+            <img src="/spotify-create-playlist/arrow-right.png" className="arrow-down" alt="Arrow pointing down" />
           </div>
 
           <div>
-            <img src="/spotify-create-playlist/created-spotify-playlist.png" style={imageStyle} />
+            <img src="/spotify-create-playlist/created-spotify-playlist.png" style={imageStyle} alt="Playlist created on Spotify" />
           </div>
         </div>
       </div>
