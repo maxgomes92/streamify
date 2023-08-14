@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useEffect, useMemo } from "react";
 import { useApp } from "../store";
-import { PATH } from "../utils/constants";
 import useAuthorize from "./useAuthorize";
+import { useNavigate } from "react-router-dom";
+import { PATH } from "../utils/constants";
 
 const client_id = "edfb7947629d4fbeb012af3ffa1915ae";
 const redirect_uri = process.env.NODE_ENV === 'development'
-  ? 'http://localhost:3000/login'
+  ? 'http://localhost:3000'
   : "https://maxgomes92.github.io/streamify"
 
 const scope =
@@ -24,6 +25,7 @@ const LOGIN_URL = [
 export default function useApi() {
   const { accessToken, tokenType } = useAuthorize();
   const { actions: { setUser }, state: { user } } = useApp();
+  const navigate = useNavigate()
 
   const options = useMemo(() => ({
     headers: {
@@ -47,7 +49,7 @@ export default function useApi() {
   }, [accessToken, options]);
 
   const authorize = () => {
-    window.location.href = LOGIN_URL;
+    window.location.href = LOGIN_URL
   };
 
   const getPlaylists = () => {
@@ -57,20 +59,23 @@ export default function useApi() {
   };
 
   const handleLoginExpired = ({ response }) => {
-    if (response.status === 400) {
-      throw response.data.error
-    }
-
-    if (response.status === 401) {
+    if (
+      response.status === 401 ||
+      response.data?.error?.message === "Only valid bearer authentication supported"
+    ) {
       localStorage.removeItem('login-hash')
-      window.location.href = PATH.home;
+      navigate(PATH.home)
     }
 
     if (response?.data?.error) {
       return Promise.reject(response?.data?.error)
     }
 
-    return Promise.reject("Not possible to create playlist, try again later.")
+    if (response.status === 400) {
+      throw response.data.error
+    }
+
+    return Promise.reject(response)
   };
 
   const searchForItem = (query) => {

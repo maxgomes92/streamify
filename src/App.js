@@ -20,9 +20,8 @@ function App() {
         <ThemeProvider theme={darkTheme}>
           <Routes>
             <Route path={PATH.home} element={<Home />} />
-            <Route path={PATH.login} element={<Login />} />
             <Route path={PATH.app} element={<Creator />} />
-            <Route path="*" element={<Navigate replace to={PATH.home} />}/>
+            <Route path="*" element={<Login />} />
           </Routes>
         </ThemeProvider>
       </AppProvider>

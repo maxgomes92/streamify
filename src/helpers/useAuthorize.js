@@ -1,5 +1,5 @@
-export default function useAuthorize () {
-  const locationHash = window.location.hash
+export default function useAuthorize() {
+  const locationHash = window.location.hash.includes("access_token") ? window.location.hash : ""
   const storageHash = localStorage.getItem('login-hash')
 
   if (!locationHash && !storageHash) {

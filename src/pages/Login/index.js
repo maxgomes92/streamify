@@ -3,15 +3,17 @@ import { Navigate } from 'react-router-dom';
 import useAuthorize from '../../helpers/useAuthorize';
 import { PATH } from '../../utils/constants';
 
-export default function Login () {
+export default function Login() {
   const { accessToken } = useAuthorize()
 
   return (
     <>
       Logging in...
-      {accessToken && (
+      {accessToken ? (
         <Navigate to={PATH.app} replace={true} />
-      )}  
+      ) : (
+        <Navigate to={PATH.home} replace={true} />
+      )}
     </>
   )
 }
