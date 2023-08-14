@@ -1,5 +1,5 @@
 const isProduction = process.env.NODE_ENV === 'production'
-const GITPAGES_PATH = '/streamify'
+// const GITPAGES_PATH = '/streamify'
 
 const DEFAULT_PATH = {
   home: '/home',
@@ -8,7 +8,7 @@ const DEFAULT_PATH = {
 }
 
 const PRODUCTION_PATH = Object.entries(DEFAULT_PATH).reduce((acc, [key, value]) => {
-  acc[key] = GITPAGES_PATH + value
+  acc[key] = value
   return acc
 }, {})
 

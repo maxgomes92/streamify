@@ -1,10 +1,8 @@
-import { Button, Container, Typography } from "@mui/material";
 import React from "react";
+import { Button, Container, Typography } from "@mui/material";
 import logo from "./icon.png";
 import Separator from "../../components/Separator";
 import useApi from "../../helpers/useApi";
-import { PATH } from "../../utils/constants";
-import { Navigate } from "react-router";
 import "./index.css";
 
 const imageStyle = { height: 200, width: 'auto' }
@@ -34,7 +32,7 @@ const sideStyle = {
 }
 
 export default function Home() {
-  const { authorize, loggedIn } = useApi();
+  const { authorize } = useApi();
 
   const onLoginClick = () => {
     authorize()
@@ -42,13 +40,9 @@ export default function Home() {
 
   return (
     <Container style={wrapperStyle} maxWidth="md">
-      {loggedIn && (
-        <Navigate to={PATH.app} replace={true} />
-      )}
-
       <div style={contentStyle}>
         <div style={sideStyle}>
-          <Typography>MP3 to Spotify</Typography>
+          <Typography>Streamify</Typography>
 
           <div style={{ flexGrow: 1 }}>
             <div>
