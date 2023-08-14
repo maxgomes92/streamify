@@ -5,6 +5,7 @@ import FileList from '../../components/FileList'
 import Separator from '../../components/Separator'
 import { Container } from '@mui/system'
 import * as Sentry from "@sentry/react"
+import { useGTMDispatch } from '@elgorditosalsero/react-gtm-hook'
 import './index.css'
 
 export default function Creator() {
@@ -14,6 +15,7 @@ export default function Creator() {
   const [playlistTitle, setPlaylistTitle] = useState('')
   const [successMsg, setSuccessMsg] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const sendDataToGTM = useGTMDispatch()
 
   const [files, setFiles] = useState(() => {
     const filesStr = localStorage.getItem('files')
@@ -128,6 +130,7 @@ export default function Creator() {
         setSuccessMsg("Playlist created successfully!")
         clearList()
         setPlaylistTitle("")
+        sendDataToGTM({ event: "Playlist Created" })
       })
       .catch((err) => {
         setErrorMsg("Sorry! We failed to create our playlist. Try again.")
