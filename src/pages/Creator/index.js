@@ -152,7 +152,7 @@ export default function Creator() {
   return (
     <div className="App">
       <Container className="App-Container">
-        <Typography align='center' variant='h2'>Playlist creator</Typography>
+        <Typography align='center' variant='h2'>Create your playlist</Typography>
 
         <List>
           <ListItem>
