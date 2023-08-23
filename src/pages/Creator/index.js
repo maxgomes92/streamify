@@ -89,7 +89,6 @@ export default function Creator() {
     }).map((f) => {
       f.q = f.name
         .replace(/\.\w{3}$/g, '') // Removes extension
-        .replace(/\W/g, ' ') // Non-character by space
         .replace(/\s+/g, ' ') // Multiple spaces by 1 space
       return f
     })
