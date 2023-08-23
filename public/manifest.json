@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Streamify Music",
+  "name": "Create playlists on streaming services from your mp3 files",
   "icons": [
     {
       "src": "favicon.ico",
