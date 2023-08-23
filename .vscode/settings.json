@@ -1,6 +1,6 @@
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "cSpell.words": [],
+  "cSpell.words": ["Streamify"],
   "files.insertFinalNewline": true,
   "eslint.format.enable": true,
   "editor.formatOnSave": true,

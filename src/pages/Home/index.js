@@ -42,7 +42,7 @@ export default function Home() {
     <Container style={wrapperStyle} maxWidth="md">
       <div style={contentStyle}>
         <div style={sideStyle}>
-          <Typography>Streamify</Typography>
+          <Typography>Streamify Music</Typography>
 
           <div style={{ flexGrow: 1 }}>
             <div>
@@ -53,7 +53,7 @@ export default function Home() {
               <Separator height={25} />
 
               <Typography variant="body1">
-                Lazy to migrate your folders of music to a streaming service? Wait no more! Drag and drop your mp3 files to our app and start listening.
+                Waiting to migrate your folders of music to a streaming service? Wait no more! Drag and drop your mp3 files to our app and start listening.
               </Typography>
 
               <Separator height={25} />

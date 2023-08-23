@@ -1,5 +1,4 @@
 const isProduction = process.env.NODE_ENV === 'production'
-// const GITPAGES_PATH = '/streamify'
 
 const DEFAULT_PATH = {
   home: '/home',
