@@ -7,14 +7,16 @@ import { Container } from '@mui/system'
 import * as Sentry from "@sentry/react"
 import { useGTMDispatch } from '@elgorditosalsero/react-gtm-hook'
 import './index.css'
+import ModalPlaylistCreated from '../../components/ModalPlaylistCreated'
 
 export default function Creator() {
   const [titleValidationMsg, setTitleValidationMsg] = useState('')
   const [listValidationMsg, setListValidationMsg] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
   const [playlistTitle, setPlaylistTitle] = useState('')
-  const [successMsg, setSuccessMsg] = useState('')
+  const [successMsg, setSuccessMsg] = useState("Playlist created successfully!")
   const [isLoading, setIsLoading] = useState(false)
+  const [shouldRenderModal, setShouldRenderModal] = useState(true)
   const sendDataToGTM = useGTMDispatch()
 
   const [files, setFiles] = useState(() => {
@@ -124,7 +126,7 @@ export default function Creator() {
 
     setIsLoading(true)
     createPlaylist(playlistTitle)
-      .then(({ data: { id } }) => {
+      .then(({ data: { id, href } }) => {
         addToPlaylist(id, { uris, position: 0 })
         setSuccessMsg("Playlist created successfully!")
         clearList()
@@ -196,6 +198,8 @@ export default function Creator() {
           {successMsg}
         </Alert>
       </Snackbar>
+
+      <ModalPlaylistCreated open={shouldRenderModal} onClose={() => setShouldRenderModal(false)} />
     </div>
   );
 }
