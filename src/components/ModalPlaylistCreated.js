@@ -14,10 +14,12 @@ const style = {
   backgroundColor: '#191414',
 }
 
-export default function ModalPlaylistCreated({ open, onClose }) {
+const DONATE_URL = "https://www.paypal.com/donate/?hosted_button_id=3EKFLMNVY5P92"
+
+export default function ModalPlaylistCreated({ playlist, onClose }) {
   return (
     <Modal
-      open={open}
+      open={!!playlist}
       onClose={onClose}
     >
       <Box style={style}>
@@ -26,12 +28,12 @@ export default function ModalPlaylistCreated({ open, onClose }) {
         </Typography>
 
         <Typography>
-          Click here to listen on Spotify!
+          Click <Link href={playlist?.href} target="_blank">here</Link> to listen to your playlist on Spotify!
         </Typography>
 
         <Typography>
           Do you enjoy this application? <br />
-          Consider buying me a <Link href="/">coffee</Link>. ☕️
+          Consider buying me a <Link href={DONATE_URL}>coffee</Link>. ☕️
         </Typography>
       </Box>
     </Modal>

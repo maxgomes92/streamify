@@ -14,9 +14,8 @@ export default function Creator() {
   const [listValidationMsg, setListValidationMsg] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
   const [playlistTitle, setPlaylistTitle] = useState('')
-  const [successMsg, setSuccessMsg] = useState("Playlist created successfully!")
   const [isLoading, setIsLoading] = useState(false)
-  const [shouldRenderModal, setShouldRenderModal] = useState(true)
+  const [createdPlaylist, setCreatedPlaylist] = useState({ href: "https://api.spotify.com/v1/playlists/7pVxHu2WPQmGR8U41jEpgf" })
   const sendDataToGTM = useGTMDispatch()
 
   const [files, setFiles] = useState(() => {
@@ -98,6 +97,11 @@ export default function Creator() {
     onSearch(myFiles)
   }
 
+  const reset = () => {
+    clearList()
+    setPlaylistTitle("")
+  }
+
   const createMyPlaylist = () => {
     const errorCallbacks = []
 
@@ -126,12 +130,11 @@ export default function Creator() {
 
     setIsLoading(true)
     createPlaylist(playlistTitle)
-      .then(({ data: { id, href } }) => {
-        addToPlaylist(id, { uris, position: 0 })
-        setSuccessMsg("Playlist created successfully!")
-        clearList()
-        setPlaylistTitle("")
+      .then(({ data }) => {
+        addToPlaylist(data.id, { uris, position: 0 })
         sendDataToGTM({ event: "Playlist Created" })
+        setCreatedPlaylist(data)
+        reset()
       })
       .catch((err) => {
         setErrorMsg("Sorry! We failed to create our playlist. Try again.")
@@ -193,13 +196,7 @@ export default function Creator() {
         </Alert>
       </Snackbar>
 
-      <Snackbar open={!!successMsg} autoHideDuration={6000} onClose={() => setSuccessMsg('')} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
-        <Alert onClose={() => setSuccessMsg('')} severity="success">
-          {successMsg}
-        </Alert>
-      </Snackbar>
-
-      <ModalPlaylistCreated open={shouldRenderModal} onClose={() => setShouldRenderModal(false)} />
+      <ModalPlaylistCreated playlist={createdPlaylist} onClose={() => setCreatedPlaylist(null)} />
     </div>
   );
 }
