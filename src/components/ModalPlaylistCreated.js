@@ -1,4 +1,6 @@
 import { Box, Link, Modal, Typography } from "@mui/material";
+import { useEffect } from "react"
+import useApi from '../helpers/useApi'
 
 const style = {
   display: 'flex',
@@ -21,6 +23,20 @@ const generatePlaylistUrl = (href) => {
 }
 
 export default function ModalPlaylistCreated({ playlist, onClose }) {
+  const api = useApi()
+
+  useEffect(() => {
+    if (!playlist) {
+      return
+    }
+
+    api.getPlaylist(playlist.href).then((data) => {
+      console.log(data)
+    }).catch(err => {
+      console.error(err)
+    })
+  }, [])
+
   return (
     <Modal
       open={!!playlist}
