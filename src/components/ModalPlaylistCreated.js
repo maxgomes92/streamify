@@ -16,6 +16,10 @@ const style = {
 
 const DONATE_URL = "https://www.paypal.com/donate/?hosted_button_id=3EKFLMNVY5P92"
 
+const generatePlaylistUrl = (href) => {
+  return href.replace("https://api.spotify.com/v1/playlists/", "https://open.spotify.com/playlist/")
+}
+
 export default function ModalPlaylistCreated({ playlist, onClose }) {
   return (
     <Modal
@@ -28,7 +32,7 @@ export default function ModalPlaylistCreated({ playlist, onClose }) {
         </Typography>
 
         <Typography>
-          Click <Link href={playlist?.href} target="_blank">here</Link> to listen to your playlist on Spotify!
+          Click <Link href={generatePlaylistUrl(playlist?.href)} target="_blank">here</Link> to listen to your playlist on Spotify!
         </Typography>
 
         <Typography>
