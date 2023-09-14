@@ -15,7 +15,7 @@ export default function Creator() {
   const [errorMsg, setErrorMsg] = useState('')
   const [playlistTitle, setPlaylistTitle] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const [createdPlaylist, setCreatedPlaylist] = useState({ href: "https://api.spotify.com/v1/playlists/7pVxHu2WPQmGR8U41jEpgf" })
+  const [createdPlaylist, setCreatedPlaylist] = useState()
   const sendDataToGTM = useGTMDispatch()
 
   const [files, setFiles] = useState(() => {
@@ -196,7 +196,9 @@ export default function Creator() {
         </Alert>
       </Snackbar>
 
-      <ModalPlaylistCreated playlist={createdPlaylist} onClose={() => setCreatedPlaylist(null)} />
+      {createdPlaylist && (
+        <ModalPlaylistCreated playlist={createdPlaylist} onClose={() => setCreatedPlaylist(null)} />
+      )}
     </div>
   );
 }
