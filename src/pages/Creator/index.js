@@ -7,14 +7,15 @@ import { Container } from '@mui/system'
 import * as Sentry from "@sentry/react"
 import { useGTMDispatch } from '@elgorditosalsero/react-gtm-hook'
 import './index.css'
+import ModalPlaylistCreated from '../../components/ModalPlaylistCreated'
 
 export default function Creator() {
   const [titleValidationMsg, setTitleValidationMsg] = useState('')
   const [listValidationMsg, setListValidationMsg] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
   const [playlistTitle, setPlaylistTitle] = useState('')
-  const [successMsg, setSuccessMsg] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [createdPlaylist, setCreatedPlaylist] = useState()
   const sendDataToGTM = useGTMDispatch()
 
   const [files, setFiles] = useState(() => {
@@ -96,6 +97,11 @@ export default function Creator() {
     onSearch(myFiles)
   }
 
+  const reset = () => {
+    clearList()
+    setPlaylistTitle("")
+  }
+
   const createMyPlaylist = () => {
     const errorCallbacks = []
 
@@ -124,12 +130,11 @@ export default function Creator() {
 
     setIsLoading(true)
     createPlaylist(playlistTitle)
-      .then(({ data: { id } }) => {
-        addToPlaylist(id, { uris, position: 0 })
-        setSuccessMsg("Playlist created successfully!")
-        clearList()
-        setPlaylistTitle("")
+      .then(({ data }) => {
+        addToPlaylist(data.id, { uris, position: 0 })
         sendDataToGTM({ event: "Playlist Created" })
+        setCreatedPlaylist(data)
+        reset()
       })
       .catch((err) => {
         setErrorMsg("Sorry! We failed to create our playlist. Try again.")
@@ -191,11 +196,9 @@ export default function Creator() {
         </Alert>
       </Snackbar>
 
-      <Snackbar open={!!successMsg} autoHideDuration={6000} onClose={() => setSuccessMsg('')} anchorOrigin={{ vertical: 'top', horizontal: 'right' }}>
-        <Alert onClose={() => setSuccessMsg('')} severity="success">
-          {successMsg}
-        </Alert>
-      </Snackbar>
+      {createdPlaylist && (
+        <ModalPlaylistCreated playlist={createdPlaylist} onClose={() => setCreatedPlaylist(null)} />
+      )}
     </div>
   );
 }

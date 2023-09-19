@@ -104,6 +104,10 @@ export default function useApi() {
       .catch(handleLoginExpired);
   };
 
+  const getPlaylist = (href) => {
+    return axios.get(href, options).catch(handleLoginExpired)
+  }
+
   return {
     loggedIn: !!accessToken,
     authorize,
@@ -111,5 +115,6 @@ export default function useApi() {
     getPlaylists,
     createPlaylist,
     addToPlaylist,
+    getPlaylist,
   };
 }
