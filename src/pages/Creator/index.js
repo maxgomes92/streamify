@@ -196,7 +196,7 @@ export default function Creator() {
         <p style={{ margin: 0, textAlign: 'right' }}>{files.length}/100</p>
 
         <div style={{ textAlign: 'right' }}>
-          <Button variant="contained" color="primary" onClick={clearList} disabled={files.length === 0}>Clear List</Button>
+          <Button variant="outline" color="primary" onClick={clearList} disabled={files.length === 0}>Clear List</Button>
           <Separator width={10} />
           <Button variant="contained" color="info" onClick={createMyPlaylist}>
             <div style={{ visibility: isLoading ? 'hidden' : 'visible' }}>Create Playlist</div>

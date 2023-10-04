@@ -4,7 +4,7 @@
   max-width: 720px !important;
   display: flex !important;
   flex-direction: column;
-  max-height: calc(100vh - 86px);
+  max-height: calc(100vh - 96px);
   gap: 10px;
   margin-top: 70px;
 }
