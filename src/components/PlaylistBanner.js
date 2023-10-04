@@ -1,5 +1,6 @@
 import { Box, Link, Typography } from "@mui/material"
 import Separator from "./Separator"
+import { assets } from "../utils/constants"
 
 const imageStyle = {
   width: '100px',
@@ -22,9 +23,7 @@ export default function PlaylistBanner({
 
   return (
     <Box style={wrapper}>
-      {playlist?.images?.length > 0 && (
-        <img src={playlist.images[0].url} alt={`Cover to playlist ${playlist.name}`} style={imageStyle} />
-      )}
+      <img src={playlist.images?.[0]?.url || assets.spotifyIconRgbWhite} alt={`Cover to playlist ${playlist.name}`} style={imageStyle} />
       <Box>
         <Typography fontWeight={700}>{[playlist.name]}</Typography>
 
