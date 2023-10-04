@@ -54,6 +54,7 @@ export default function Creator() {
             artist: item.artists[0].name,
             preview_url: item.preview_url,
             uri: item.uri,
+            external_url: item.external_urls.spotify,
             checked: i === 0,
           }
         })
