@@ -2,7 +2,7 @@
   "name": "streamify",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://maxgomes92.github.io/streamify",
+  "homepage": "https://streamify-music.com",
   "scripts": {
     "start": "react-scripts start",
     "build": "NODE_ENV=production react-scripts build",
