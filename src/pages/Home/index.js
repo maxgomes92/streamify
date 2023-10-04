@@ -4,6 +4,7 @@ import logo from "./icon.png";
 import Separator from "../../components/Separator";
 import useApi from "../../helpers/useApi";
 import "./index.css";
+import { assets } from "../../utils/constants";
 
 const imageStyle = { height: 200, width: 'auto' }
 
@@ -82,15 +83,15 @@ export default function Home() {
 
         <div style={{ ...sideStyle, alignItems: 'center' }} className="gradient-bg">
           <div>
-            <img src="/folder-mp3-list.png" style={imageStyle} alt="Folder with mp3 files" />
+            <img src={assets.folderMp3List} style={imageStyle} alt="Folder with mp3 files" />
           </div>
 
           <div>
-            <img src="/arrow-right.png" className="arrow-down" alt="Arrow pointing down" />
+            <img src={assets.arrowRight} className="arrow-down" alt="Arrow pointing down" />
           </div>
 
           <div>
-            <img src="/created-spotify-playlist.png" style={imageStyle} alt="Playlist created on Spotify" />
+            <img src={assets.createdSpotifyPlaylist} style={imageStyle} alt="Playlist created on Spotify" />
           </div>
         </div>
       </div>
