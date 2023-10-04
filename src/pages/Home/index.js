@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Container, Typography } from "@mui/material";
+import { Box, Button, Chip, Container, Typography } from "@mui/material";
 import logo from "./icon.png";
 import Separator from "../../components/Separator";
 import useApi from "../../helpers/useApi";
@@ -42,7 +42,10 @@ export default function Home() {
     <Container style={wrapperStyle} maxWidth="md">
       <div style={contentStyle}>
         <div style={sideStyle}>
-          <Typography>Streamify Music</Typography>
+          <Box sx={{ display: "flex", gap: "10px", alignItems: "center" }}>
+            <Typography>Streamify Music</Typography>
+            <Chip label="BETA" color="error" size="small" />
+          </Box>
 
           <div style={{ flexGrow: 1 }}>
             <div>
@@ -53,7 +56,7 @@ export default function Home() {
               <Separator height={25} />
 
               <Typography variant="body1">
-                Waiting to migrate your folders of music to a streaming service? Wait no more! Drag and drop your mp3 files to our app and start listening.
+                Waiting to migrate your folders of music to a streaming service? Wait no more! Select your mp3 files to our app and start listening.
               </Typography>
 
               <Separator height={25} />
@@ -70,7 +73,7 @@ export default function Home() {
 
           <div>
             <Typography variant="body2" fontSize={10} textAlign="center">
-              <b>Spotify to Playlist</b> use Spotify Web API to perform but application works as client side only and your
+              <b>Streamify Music</b> use Spotify Web API to perform but application works as client side only and your
               Spotify data is not stored to any server.
             </Typography>
           </div>
