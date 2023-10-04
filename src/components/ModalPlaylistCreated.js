@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Box, Button, Link, Modal, Typography } from "@mui/material";
 import { useEffect, useState } from "react"
 import useApi from '../helpers/useApi'

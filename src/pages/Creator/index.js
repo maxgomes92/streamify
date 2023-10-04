@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Alert, Button, CircularProgress, List, ListItem, Snackbar, TextField, Typography } from '@mui/material'
+import { Alert, AppBar, Box, Button, CircularProgress, IconButton, List, ListItem, Snackbar, TextField, Toolbar, Typography } from '@mui/material'
+import { ArrowBack } from '@mui/icons-material'
 import useApi from '../../helpers/useApi'
 import FileList from '../../components/FileList'
 import Separator from '../../components/Separator'
@@ -8,6 +9,7 @@ import * as Sentry from "@sentry/react"
 import { useGTMDispatch } from '@elgorditosalsero/react-gtm-hook'
 import './index.css'
 import ModalPlaylistCreated from '../../components/ModalPlaylistCreated'
+import { useNavigate } from 'react-router-dom'
 
 export default function Creator() {
   const [titleValidationMsg, setTitleValidationMsg] = useState('')
@@ -16,7 +18,9 @@ export default function Creator() {
   const [playlistTitle, setPlaylistTitle] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [createdPlaylist, setCreatedPlaylist] = useState()
+
   const sendDataToGTM = useGTMDispatch()
+  const navigate = useNavigate()
 
   const [files, setFiles] = useState(() => {
     const filesStr = localStorage.getItem('files')
@@ -154,10 +158,22 @@ export default function Creator() {
   }
 
   return (
-    <div className="App">
-      <Container className="App-Container">
-        <Typography align='center' variant='h2'>Create your playlist</Typography>
+    <Box className="App">
+      <AppBar component="nav">
+        <Toolbar>
+          <IconButton aria-label="Go back" onClick={() => navigate("/home")}>
+            <ArrowBack />
+          </IconButton>
 
+          <Separator width={10} />
+
+          <Typography variant="h6" component="div">
+            Create your playlist
+          </Typography>
+        </Toolbar>
+      </AppBar>
+
+      <Container className="App-Container">
         <List>
           <ListItem>
             1. Add your songs to the list
@@ -199,6 +215,6 @@ export default function Creator() {
       {createdPlaylist && (
         <ModalPlaylistCreated playlist={createdPlaylist} onClose={() => setCreatedPlaylist(null)} />
       )}
-    </div>
+    </Box>
   );
 }
