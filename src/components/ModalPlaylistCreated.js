@@ -20,7 +20,7 @@ const style = {
   backgroundColor: '#191414',
 }
 
-const DONATE_URL = "https://www.paypal.com/donate/?hosted_button_id=3EKFLMNVY5P92"
+const DONATE_URL = "https://www.buymeacoffee.com/maxgomes"
 
 export default function ModalPlaylistCreated({ playlist, onClose }) {
   const api = useApi()
