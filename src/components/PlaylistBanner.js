@@ -22,7 +22,7 @@ export default function PlaylistBanner({
 
   return (
     <Box style={wrapper}>
-      {playlist?.images?.length && (
+      {playlist?.images?.length > 0 && (
         <img src={playlist.images[0].url} alt={`Cover to playlist ${playlist.name}`} style={imageStyle} />
       )}
       <Box>

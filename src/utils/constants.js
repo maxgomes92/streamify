@@ -13,7 +13,7 @@ const PRODUCTION_PATH = Object.entries(DEFAULT_PATH).reduce((acc, [key, value]) 
 
 export const PATH = isProduction ? PRODUCTION_PATH : DEFAULT_PATH
 
-const ASSET_PREFIX = isProduction ? "" : "/streamify"
+const ASSET_PREFIX = isProduction ? "" : ""
 
 export const assets = {
   folderMp3List: ASSET_PREFIX + "/folder-mp3-list.png",
