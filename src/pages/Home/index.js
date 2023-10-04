@@ -82,15 +82,15 @@ export default function Home() {
 
         <div style={{ ...sideStyle, alignItems: 'center' }} className="gradient-bg">
           <div>
-            <img src="/streamify/folder-mp3-list.png" style={imageStyle} alt="Folder with mp3 files" />
+            <img src="/folder-mp3-list.png" style={imageStyle} alt="Folder with mp3 files" />
           </div>
 
           <div>
-            <img src="/streamify/arrow-right.png" className="arrow-down" alt="Arrow pointing down" />
+            <img src="/arrow-right.png" className="arrow-down" alt="Arrow pointing down" />
           </div>
 
           <div>
-            <img src="/streamify/created-spotify-playlist.png" style={imageStyle} alt="Playlist created on Spotify" />
+            <img src="/created-spotify-playlist.png" style={imageStyle} alt="Playlist created on Spotify" />
           </div>
         </div>
       </div>
