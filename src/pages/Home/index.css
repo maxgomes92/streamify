@@ -3,9 +3,36 @@ img {
 }
 
 .gradient-bg {
-  background: linear-gradient(90deg, rgba(110,104,226,1) 0%, rgba(79,79,214,1) 13%, rgba(0,212,255,1) 100%);
+  background: linear-gradient(90deg, rgba(110, 104, 226, 1) 0%, rgba(79, 79, 214, 1) 13%, rgba(0, 212, 255, 1) 100%);
 }
 
 .arrow-down {
   transform: rotate(90deg);
+}
+
+.Banner {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.Home {
+  height: 100vh;
+  display: grid !important;
+  place-content: center;
+  color: black;
+}
+
+@media only screen and (max-width: 768px) {
+  .Banner {
+    flex-direction: column;
+  }
+
+  .Home {
+    height: initial;
+  }
 }

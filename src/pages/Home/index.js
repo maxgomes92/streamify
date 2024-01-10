@@ -2,26 +2,10 @@ import React from "react";
 import { Box, Button, Chip, Container, Typography } from "@mui/material";
 import Separator from "../../components/Separator";
 import useApi from "../../helpers/useApi";
-import "./index.css";
 import { assets } from "../../utils/constants";
+import "./index.css";
 
 const imageStyle = { height: 200, width: 'auto' }
-
-const wrapperStyle = {
-  height: '100vh',
-  display: 'grid',
-  placeContent: 'center',
-  color: 'black',
-}
-const contentStyle = {
-  display: 'flex',
-  flexDirection: 'row',
-  gap: 20,
-  justifyContent: 'center',
-  backgroundColor: 'white',
-  borderRadius: 10,
-  overflow: 'hidden',
-}
 
 const sideStyle = {
   display: 'flex',
@@ -39,8 +23,8 @@ export default function Home() {
   }
 
   return (
-    <Container style={wrapperStyle} maxWidth="md">
-      <div style={contentStyle}>
+    <Container className="Home" maxWidth="md">
+      <div className="Banner">
         <div style={sideStyle}>
           <Box sx={{ display: "flex", gap: "10px", alignItems: "center" }}>
             <Typography>Streamify Music</Typography>
