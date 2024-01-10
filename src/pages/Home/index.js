@@ -1,6 +1,5 @@
 import React from "react";
 import { Box, Button, Chip, Container, Typography } from "@mui/material";
-import logo from "./icon.png";
 import Separator from "../../components/Separator";
 import useApi from "../../helpers/useApi";
 import "./index.css";
@@ -64,7 +63,7 @@ export default function Home() {
 
               <div style={{ textAlign: 'center' }}>
                 <Button variant="contained" onClick={onLoginClick} style={{ color: 'white', backgroundColor: '#20c933', textTransform: 'none' }}>
-                  <img src={logo} alt="spotify-logo" />
+                  <img src="/spotify/Spotify_Icon_RGB_White.png" alt="spotify-logo" />
                   <Separator width={10} />
                   <b>Sign-in with Spotify</b>
                 </Button>
