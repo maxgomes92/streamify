@@ -177,7 +177,7 @@ export default function Creator() {
       <Container className="App-Container">
         <List>
           <ListItem>
-            1. Add your songs to the list
+            1. Add your songs to the list (mp3, wma, etc)
           </ListItem>
           <ListItem>
             2. Pick the version you like better (Optional)
