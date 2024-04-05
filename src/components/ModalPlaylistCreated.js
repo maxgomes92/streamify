@@ -22,6 +22,8 @@ const style = {
 
 const DONATE_URL = "https://www.buymeacoffee.com/maxgomes"
 
+const waitFor = (time) => new Promise(resolve => setTimeout(resolve, time))
+
 export default function ModalPlaylistCreated({ playlist, onClose }) {
   const api = useApi()
   const [playlistData, setPlaylistData] = useState()
@@ -31,11 +33,12 @@ export default function ModalPlaylistCreated({ playlist, onClose }) {
       return
     }
 
-    api.getPlaylist(playlist.href).then(({ data }) => {
+    // Wait for the playlist cover to be created
+    waitFor(300).then(api.getPlaylist(playlist.href).then(({ data }) => {
       setPlaylistData(data)
     }).catch(err => {
       Sentry.captureException(err)
-    })
+    }))
   }, [])
 
   return (
@@ -58,7 +61,7 @@ export default function ModalPlaylistCreated({ playlist, onClose }) {
 
           <Typography>
             Do you enjoy this application? <br />
-            Consider buying me a <Link href={DONATE_URL}>coffee </Link> ☕️.
+            Consider buying me a <Link href={DONATE_URL} target="_blank">coffee </Link> ☕️.
           </Typography>
         </Box>
 
