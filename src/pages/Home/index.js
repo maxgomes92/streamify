@@ -43,13 +43,7 @@ export default function Home() {
                 Waiting to migrate your folders of music to a streaming service? Wait no more! Select your mp3 files to our app and start listening.
               </Typography>
 
-              <Separator height={15} />
-
-              <Typography variant="body2" color="red">
-                This app is not yet approved by Spotify, therefore you won't be able to use it. Please, come back later. 😊
-              </Typography>
-
-              <Separator height={15} />
+              <Separator height={30} />
 
               <div style={{ textAlign: 'center' }}>
                 <Button variant="contained" onClick={onLoginClick} style={{ color: 'white', backgroundColor: '#20c933', textTransform: 'none' }}>
